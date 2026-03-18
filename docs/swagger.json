@@ -1,0 +1,100 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample mock server.",
+        "title": "Swagger Example API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/rate": {
+            "get": {
+                "description": "Returns mock currency rates",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/xml"
+                ],
+                "tags": [
+                    "rate"
+                ],
+                "summary": "Get currency rates",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Test ID",
+                        "name": "test_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "HTTP status code",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Rate"
+                        }
+                    },
+                    "500": {
+                        "description": "Unsuccessful data receiving",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Rate": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "valutes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Valute"
+                    }
+                }
+            }
+        },
+        "models.Valute": {
+            "type": "object",
+            "properties": {
+                "charCode": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nominal": {
+                    "type": "integer"
+                },
+                "numCode": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "vunitRate": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

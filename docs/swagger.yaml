@@ -1,0 +1,65 @@
+definitions:
+  models.Rate:
+    properties:
+      date:
+        type: string
+      name:
+        type: string
+      valutes:
+        items:
+          $ref: '#/definitions/models.Valute'
+        type: array
+    type: object
+  models.Valute:
+    properties:
+      charCode:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      nominal:
+        type: integer
+      numCode:
+        type: string
+      value:
+        type: string
+      vunitRate:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample mock server.
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /rate:
+    get:
+      consumes:
+      - application/json
+      description: Returns mock currency rates
+      parameters:
+      - description: Test ID
+        in: query
+        name: test_id
+        required: true
+        type: string
+      - description: HTTP status code
+        in: query
+        name: status
+        type: integer
+      produces:
+      - text/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Rate'
+        "500":
+          description: Unsuccessful data receiving
+          schema:
+            type: string
+      summary: Get currency rates
+      tags:
+      - rate
+swagger: "2.0"

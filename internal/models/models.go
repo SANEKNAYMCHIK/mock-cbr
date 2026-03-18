@@ -3,7 +3,7 @@ package models
 import "encoding/xml"
 
 type Rate struct {
-	XMLName xml.Name `xml:"ValCurs"`
+	XMLName xml.Name `xml:"ValCurs" swaggerignore:"true"`
 	Date    string   `xml:"Date,attr"`
 	Name    string   `xml:"name,attr"`
 	Valutes []Valute `xml:"Valute"`
