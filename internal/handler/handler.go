@@ -21,7 +21,7 @@ func GetRates(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unsuccessful data receiving", http.StatusInternalServerError)
 		return
 	}
-	WriteResponse(w, service.GetRates(testId, statusCode))
+	WriteResponse(w, service.GetRates(testId))
 }
 
 func WriteResponse(w http.ResponseWriter, rate models.Rate) {
