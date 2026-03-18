@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package rate;
+
+syntax = "proto3";
+
+package rate;
+
+option go_package = "github.com/SANEKNAYMCHIK/mock-cbr/pkg/proto;proto";
+
+message Rate {
+  string date = 1;
+  string name = 2;
+  repeated Valute valutes = 3;
+}
+
+message Valute {
+  string id = 1;
+  string num_code = 2;
+  string char_code = 3;
+  int32 nominal = 4;
+  string name = 5;
+  string value = 6;
+  string vunit_rate = 7;
+}
+
+service RateService {
+  rpc GetRates (GetRatesRequest) returns (RateResponse);
+}
+
+message GetRatesRequest {
+  string test_id = 1;
+}
+
+message RateResponse {
+  Rate rate = 1;
+}
