@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/SANEKNAYMCHIK/mock-cbr/internal/models"
-	"github.com/SANEKNAYMCHIK/mock-cbr/internal/services"
+	"github.com/SANEKNAYMCHIK/mock-cbr/internal/service"
 )
 
 func GetRates(w http.ResponseWriter, r *http.Request) {
@@ -21,10 +21,11 @@ func GetRates(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unsuccessful data receiving", http.StatusInternalServerError)
 		return
 	}
-	WriteResponse(w, services.GetRates(testId, statusCode))
+	WriteResponse(w, service.GetRates(testId, statusCode))
 }
 
 func WriteResponse(w http.ResponseWriter, rate models.Rate) {
+	w.Header().Set("Content-Type", "application/xml")
 	if err := xml.NewEncoder(w).Encode(rate); err != nil {
 		http.Error(w, "Something went wrong", http.StatusInternalServerError)
 		return
