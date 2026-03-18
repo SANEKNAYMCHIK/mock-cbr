@@ -6,3 +6,9 @@ build:
 
 swagger:
 	swag init -g cmd/mock-cbr/main.go
+
+redis-up:
+	docker-compose up -d redis
+
+redis-run: redis-up
+	$(MAKE) run

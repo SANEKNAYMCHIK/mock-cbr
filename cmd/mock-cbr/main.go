@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/SANEKNAYMCHIK/mock-cbr/docs"
 	"github.com/SANEKNAYMCHIK/mock-cbr/internal/handler"
+	"github.com/SANEKNAYMCHIK/mock-cbr/internal/service"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -19,6 +20,7 @@ func main() {
 		handler.GetRates(w, r)
 	})
 	mux.HandleFunc("/swagger/", httpSwagger.WrapHandler)
+	service.InitRedis()
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
 		log.Fatalf("Server error: %v", err)
