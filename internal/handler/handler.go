@@ -13,7 +13,6 @@ import (
 // @Summary Get currency rates
 // @Description Returns mock currency rates
 // @Tags rate
-// @Accept json
 // @Produce xml
 // @Param test_id query string true "Test ID"
 // @Param status query int false "HTTP status code"
