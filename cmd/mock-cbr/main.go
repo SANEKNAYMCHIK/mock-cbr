@@ -16,12 +16,11 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/rate", func(w http.ResponseWriter, r *http.Request) {
-		handler.GetRates(w, r)
-	})
+	mux.HandleFunc("/rate", handler.GetRates)
 	mux.HandleFunc("/swagger/", httpSwagger.WrapHandler)
+	loggedMux := handler.LoggingMiddleware(mux)
 	service.InitRedis()
-	err := http.ListenAndServe(":8080", mux)
+	err := http.ListenAndServe(":8080", loggedMux)
 	if err != nil {
 		log.Fatalf("Server error: %v", err)
 	}
