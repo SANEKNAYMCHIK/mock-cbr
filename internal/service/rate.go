@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/xml"
 	"hash/fnv"
 	"math/rand"
 	"strconv"
@@ -11,6 +12,25 @@ import (
 )
 
 func GetRates(testID string) models.Rate {
+	if rdbClient != nil {
+		cached, err := rdbClient.Get(testID).Result()
+		if err == nil {
+			var res models.Rate
+			xml.Unmarshal([]byte(cached), &res)
+			return res
+		}
+	}
+	res := generateRates(testID)
+	// Устанавливаем expiration Time небольшим, чтобы например при следующем
+	// запуске можно было управлять тестом с таким же ID, то есть задать другой код состояния
+	if rdbClient != nil {
+		bytes, _ := xml.Marshal(res)
+		rdbClient.SetNX(testID, bytes, time.Minute*5)
+	}
+	return res
+}
+
+func generateRates(testID string) models.Rate {
 	data := models.Rate{
 		Valutes: []models.Valute{},
 	}
